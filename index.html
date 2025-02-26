@@ -7,7 +7,7 @@
         <link rel="icon" type="image/png" href="img/favicon.ico" />
         <style>
             body {
-                background-color: #1f1f1f;
+                background-color: #121212;
                 color: #e0e0e0;
                 font-family: Arial, sans-serif;
                 display: flex;
@@ -17,6 +17,7 @@
                 height: 100vh;
                 margin: 0;
                 text-align: center;
+                position: relative;
             }
             img {
                 width: 150px;
@@ -34,7 +35,43 @@
             a:hover {
                 text-decoration: underline;
             }
+            .email-container {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                cursor: pointer;
+                font-size: 1.2em;
+                margin-top: 10px;
+            }
+            .email-icon {
+                font-size: 1.5em;
+            }
+            .copy-message {
+                position: absolute;
+                transform: translate(-10%, 0%);
+                background: #333;
+                color: #76c7c0;
+                padding: 5px 10px;
+                border-radius: 5px;
+                opacity: 0;
+                transition: opacity 0.5s ease-in-out;
+            }
+            .copy-message.show {
+                opacity: 1;
+            }
         </style>
+        <script>
+            function copyEmail() {
+                const email = 'david@siegert.cz';
+                navigator.clipboard.writeText(email).then(() => {
+                    const message = document.getElementById('copyMessage');
+                    message.classList.add('show');
+                    setTimeout(() => {
+                        message.classList.remove('show');
+                    }, 1500);
+                });
+            }
+        </script>
     </head>
     <body>
         <img src="img/profile.png" alt="My Picture" />
@@ -44,5 +81,10 @@
             <a href="https://www.linkedin.com/in/david-siegert/" target="_blank">LinkedIn</a> |
             <a href="https://github.com/david-siegert" target="_blank">GitHub</a>
         </p>
+        <div class="email-container" onclick="copyEmail()">
+            <span class="email-icon">✉</span>
+            <span>david@siegert.cz</span>
+            <span id="copyMessage" class="copy-message">Email copied to clipboard!</span>
+        </div>
     </body>
 </html>
